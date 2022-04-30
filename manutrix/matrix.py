@@ -7,11 +7,25 @@ class matrix:
         self.matrix = []
 
     
-    def add_row(self, row):
-        self.matrix.append(row)
+    def add_row(self, row, pos=None):
+        if pos:
+            self.matrix.insert(pos, row)
+        else:
+            self.matrix.append(row)
         self.rows += 1
         self.cols = len(row)
 
+    
+    def add_col(self, col, pos=None):
+        if pos:
+            for i in range(self.rows):
+                self.matrix[i].insert(pos, col[i])
+        else:
+            for i in range(self.rows):
+                self.matrix[i].append(col[i])
+        
+        self.rows = len(cols)
+        self.cols += 1
 
 
     def get_col(self, col_num):
