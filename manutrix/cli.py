@@ -18,16 +18,19 @@ def main():
                 rows, cols = map(int, dims.split("x"))
                 new_matrix = matrix()
 
-                for i in range(rows):
-                    row = input(f"Row {i}: ")
+                i = 0
+                while i < rows:
+                    row = input(f"Row {i+1}: ")
                     row = list(map(float, row.split(" ")))
                     if len(row) == cols:
-                        new_matrix.add_row(row)
+                        print(f"{cols} elements required in each row.")
                         continue
-                    print("Not enough elements.\n")
+                    new_matrix.add_row(row)
+                    i +=1
+                    
                 
                 matrixes[name] = new_matrix
-                print(f"Matrix {name} added.\n")
+                print(f"Matrix {name} added.")
         
         elif command == "RANDOM":
             if correct_args(commands, 1):
@@ -37,12 +40,12 @@ def main():
                 new_matrix = matrix()
                 new_matrix.random(rows, cols)
                 matrixes[name] = new_matrix
-                print(f"Matrix {name} added.\n")
+                print(f"Matrix {name} added.")
         
         elif command == "SHOW":
             if correct_args(commands, 1):
                 name = commands[1]
-                print(matrixes[name].matrix)
+                print_matrix(matrixes[name].matrix)
 
         elif command == "MULT":
             if correct_args(commands, 2):
@@ -79,6 +82,8 @@ def main():
 
         elif command == "SYM":
             pass
+
+        print("\n")
 
 
 def print_matrix(matrix):
