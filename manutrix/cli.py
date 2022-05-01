@@ -62,7 +62,8 @@ def main():
                 transpose_matrix(*arguments)
 
         elif command == "SYM":
-            pass
+            if correct_args(arguments, 1):
+                validate_symmetry(*arguments)
 
         print("\n")
 
@@ -146,4 +147,12 @@ def scale_matrix(name, n):
 def transpose_matrix(matrix, name):
     result = matrixes[matrix].transpose()
     save_as_new_matrix(name, result)
+
+
+def validate_symmetry(name):
+    is_sym = matrixes[name].is_symmetrical()
+    if is_sym:
+        print(f"{Fore.GREEN}Matrix {name} is symmetrical.")
+        return
+    print(f"{Fore.RED}Matrix {name} is not symmetrical.")
             
