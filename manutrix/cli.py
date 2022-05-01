@@ -1,6 +1,12 @@
 from matrix import matrix
+import os
+import colorama
+from colorama import Fore
+colorama.init(autoreset=True, convert=True)
+
 
 def main():
+    intro()
     #  Session data
     matrixes = {}
     
@@ -11,40 +17,44 @@ def main():
         if command == "EXIT":
             break
 
+        elif command == "CLS":
+            intro()
+
         elif command == "MATRIX":
             if correct_args(commands, 1):
                 name = commands[1]
-                dims = input("Dimensions (e.g 3x3): ")
+                dims = input(f"{Fore.BLUE}Dimensions (e.g 3x3): ")
                 rows, cols = map(int, dims.split("x"))
                 new_matrix = matrix()
 
                 i = 0
                 while i < rows:
-                    row = input(f"Row {i+1}: ")
+                    row = input(f"{Fore.BLUE}Row {i+1}: ")
                     row = list(map(float, row.split(" ")))
-                    if len(row) == cols:
-                        print(f"{cols} elements required in each row.")
+                    if len(row) != cols:
+                        print(f"{Fore.RED}{cols} elements required in each row.")
                         continue
                     new_matrix.add_row(row)
                     i +=1
                     
                 
                 matrixes[name] = new_matrix
-                print(f"Matrix {name} added.")
+                print(f"{Fore.GREEN}Matrix {name} added.")
         
         elif command == "RANDOM":
             if correct_args(commands, 1):
                 name = commands[1]
-                dims = input("Dimensions (e.g 3x3): ")
+                dims = input(f"{Fore.BLUE}Dimensions (e.g 3x3): ")
                 rows, cols = map(int, dims.split("x"))
                 new_matrix = matrix()
                 new_matrix.random(rows, cols)
                 matrixes[name] = new_matrix
-                print(f"Matrix {name} added.")
+                print(f"{Fore.GREEN}Matrix {name} added.")
         
         elif command == "SHOW":
             if correct_args(commands, 1):
                 name = commands[1]
+                print(f"{Fore.GREEN} Matrix {name} {matrixes[name].get_dims()}:")
                 print_matrix(matrixes[name].matrix)
 
         elif command == "MULT":
@@ -86,14 +96,19 @@ def main():
         print("\n")
 
 
+def intro():
+    os.system("cls")
+    print(f"{Fore.GREEN}Smart functions to manipulate any 2D matrix.\nUse command 'functions' to list all functions.\n")
+
+
 def print_matrix(matrix):
     for rows in matrix:
-        print(rows)
+        print(f"{Fore.GREEN}{rows}")
 
 def correct_args(commands, n):
     if len(commands) == n+1:
         return True
-    print(f"Required number of arguments is {n}")
+    print(f"{Fore.RED}Required number of arguments is {n}")
     return False
                 
             
