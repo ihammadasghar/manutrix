@@ -52,7 +52,8 @@ def main():
                 scale_matrix(*arguments)
         
         elif command == "+ROW":
-            pass
+            if correct_args(arguments, 1):
+                add_row(*arguments)
         
         elif command == "+COL":
             pass
@@ -155,4 +156,16 @@ def validate_symmetry(name):
         print(f"{Fore.GREEN}Matrix {name} is symmetrical.")
         return
     print(f"{Fore.RED}Matrix {name} is not symmetrical.")
-            
+
+
+def add_row(name):
+    while True:
+        row = input(f"{Fore.BLUE}Row: ")
+        row = list(map(float, row.split(" ")))
+        if len(row) == matrixes[name].cols:
+            matrixes[name].add_row(row)
+            print(f"{Fore.GREEN}Row added to matrix {name}.")
+            show_matrix(name)
+            return
+        print(f"{Fore.RED}{matrixes[name].cols} elements required in each row.")
+    
