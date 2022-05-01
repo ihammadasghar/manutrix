@@ -56,7 +56,8 @@ def main():
                 add_row(*arguments)
         
         elif command == "+COL":
-            pass
+            if correct_args(arguments, 1):
+                add_col(*arguments)
 
         elif command == "TRANS":
             if correct_args(arguments, 2):
@@ -168,4 +169,16 @@ def add_row(name):
             show_matrix(name)
             return
         print(f"{Fore.RED}{matrixes[name].cols} elements required in each row.")
+
+
+def add_col(name):
+    while True:
+        col = input(f"{Fore.BLUE}Column: ")
+        col = list(map(float, col.split(" ")))
+        if len(col) == matrixes[name].rows:
+            matrixes[name].add_col(col)
+            print(f"{Fore.GREEN}Column added to matrix {name}.")
+            show_matrix(name)
+            return
+        print(f"{Fore.RED}{matrixes[name].rows} elements required in each column.")
     
