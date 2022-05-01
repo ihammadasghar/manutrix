@@ -1,10 +1,15 @@
 from utils import dot_product
+import random
 
 class matrix:
     def __init__(self) -> None:
         self.rows = 0
         self.cols = 0
         self.matrix = []
+
+
+    def random(self, rows, cols, start=1, end=10):
+        self.matrix = [[random.randrange(start, end) for _ in range(cols)] for _ in range(rows)]
 
     
     def add_row(self, row, pos=None):
@@ -24,7 +29,7 @@ class matrix:
             for i in range(self.rows):
                 self.matrix[i].append(col[i])
         
-        self.rows = len(cols)
+        self.rows = len(col)
         self.cols += 1
 
 

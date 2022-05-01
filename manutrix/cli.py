@@ -12,7 +12,7 @@ def main():
             break
 
         elif command == "MATRIX":
-            if correct_args(commands, 2):
+            if correct_args(commands, 1):
                 name = commands[1]
                 dims = input("Dimensions (e.g 3x3): ")
                 rows, cols = map(int, dims.split("x"))
@@ -26,6 +26,16 @@ def main():
                         continue
                     print("Not enough elements.\n")
                 
+                matrixes[name] = new_matrix
+                print(f"Matrix {name} added.\n")
+        
+        elif command == "RANDOM":
+            if correct_args(commands, 1):
+                name = commands[1]
+                dims = input("Dimensions (e.g 3x3): ")
+                rows, cols = map(int, dims.split("x"))
+                new_matrix = matrix()
+                new_matrix.random(rows, cols)
                 matrixes[name] = new_matrix
                 print(f"Matrix {name} added.\n")
         
@@ -52,7 +62,7 @@ def main():
                 result = matrixes[a].subtract(matrixes[b])
                 print_matrix(result)
 
-        elif command == "SCALE"
+        elif command == "SCALE":
             if correct_args(commands, 2):
                 n, name = commands[1:]
                 result = matrixes[name].scale(int(n))
@@ -75,7 +85,7 @@ def print_matrix(matrix):
     for rows in matrix:
         print(rows)
 
-def correct_args(commands, n)
+def correct_args(commands, n):
     if len(commands) == n+1:
         return True
     print(f"Required number of arguments is {n}")
