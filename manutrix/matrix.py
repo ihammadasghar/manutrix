@@ -1,3 +1,4 @@
+from turtle import update
 from utils import dot_product
 import random
 
@@ -10,11 +11,7 @@ class matrix:
 
     def random(self, rows, cols, start=1, end=10):
         self.matrix = [[random.randrange(start, end) for _ in range(cols)] for _ in range(rows)]
-
-
-    def set_matrix(self, matrix):
-        for row in matrix:
-            self.add_row(row)
+        self.update_dims()
 
     
     def update_dims(self):
@@ -27,8 +24,7 @@ class matrix:
             self.matrix.insert(pos, row)
         else:
             self.matrix.append(row)
-        self.rows += 1
-        self.cols = len(row)
+        self.update_dims()
 
     
     def add_col(self, col, pos=None):
@@ -63,7 +59,8 @@ class matrix:
 
     def set_matrix(self, matrix):
         self.matrix = matrix
-        self.rows, self.dims = len(matrix), len(matrix[0])
+        if matrix != []:
+            self.update_dims()
 
 
     def add(self, b):
@@ -107,7 +104,7 @@ class matrix:
         return None
 
     
-    def scale_up(self, n):
+    def scale(self, n):
         rows, cols= self.dims
         result_matrix = self.matrix.copy()
         for i in range(rows):

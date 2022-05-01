@@ -22,33 +22,33 @@ def main():
             intro()
 
         elif command == "MATRIX":
-            if correct_args(commands, 2):
+            if correct_args(arguments, 2):
                 make_matrix(*arguments)
                 
         
         elif command == "RANDOM":
-            if correct_args(commands, 1):
+            if correct_args(arguments, 2):
                 make_random_matrix(*arguments)
         
         elif command == "SHOW":
-            if correct_args(commands, 1):
+            if correct_args(arguments, 1):
                 show_matrix(*arguments)
                 
 
         elif command == "MULT":
-            if correct_args(commands, 2):
+            if correct_args(arguments, 3):
                 multiply_matrix(*arguments)
 
         elif command == "ADD":
-            if correct_args(commands, 3):
+            if correct_args(arguments, 3):
                 add_matrix(*arguments)
 
         elif command == "SUB":
-            if correct_args(commands, 2):
+            if correct_args(arguments, 3):
                 subtract_matrix(*arguments)
 
         elif command == "SCALE":
-            if correct_args(commands, 2):
+            if correct_args(arguments, 3):
                 scale_matrix(*arguments)
         
         elif command == "ADDROW":
@@ -68,7 +68,7 @@ def main():
 
 def intro():
     os.system("cls")
-    print(f"{Fore.GREEN}Smart functions to manipulate any 2D matrix.\nUse command 'functions' to list all functions.\n")
+    print(f"{Fore.GREEN}Smart functions to manipulate any 2D matrix.\nUse command 'functions' to list all functions.")
 
 
 def print_matrix(matrix):
@@ -76,8 +76,8 @@ def print_matrix(matrix):
         print(f"{Fore.GREEN}{rows}")
 
 
-def correct_args(commands, n):
-    if len(commands) == n+1:
+def correct_args(arguemnts, n):
+    if len(arguemnts) == n:
         return True
     print(f"{Fore.RED}Required number of arguments is {n}")
     return False
@@ -110,26 +110,34 @@ def make_random_matrix(name, dims):
 
 
 def show_matrix(name):
-    print(f"{Fore.BLUEls}Matrix {name} {matrixes[name].get_dims()}:\n")
+    print(f"{Fore.BLUE}Matrix {name} {matrixes[name].get_dims()}:")
     print_matrix(matrixes[name].matrix)
 
 
-def multiply_matrix(a, b):
+def multiply_matrix(a, b, name):
     result = matrixes[a].multiply(matrixes[b])
-    print_matrix(result)
+    save_as_new_matrix(name, result)
 
 
-def add_matrix(a, b):
+def add_matrix(a, b, name):
     result = matrixes[a].add(matrixes[b])
-    print_matrix(result)
+    save_as_new_matrix(name, result)
 
 
-def subtract_matrix(a, b):
+def save_as_new_matrix(name, result):
+    new_matrix = matrix()
+    new_matrix.set_matrix(result)
+    matrixes[name] = new_matrix
+    print(f"{Fore.GREEN}Result saved at matrix {name}.")
+    show_matrix(name)
+
+
+def subtract_matrix(a, b, name):
     result = matrixes[a].subtract(matrixes[b])
-    print_matrix(result)
+    save_as_new_matrix(name, result)
 
 
 def scale_matrix(name, n):
     result = matrixes[name].scale(int(n))
-    print_matrix(result)
+    save_as_new_matrix(name, result)
             
