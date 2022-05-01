@@ -10,7 +10,7 @@ class matrix:
 
 
     def random(self, rows, cols, start=1, end=10):
-        self.matrix = [[random.randrange(start, end) for _ in range(cols)] for _ in range(rows)]
+        self.matrix = [[float(random.randrange(start, end)) for _ in range(cols)] for _ in range(rows)]
         self.update_dims()
 
     
