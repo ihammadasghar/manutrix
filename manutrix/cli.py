@@ -1,5 +1,6 @@
 from matrix import matrix
 import os
+from settings import HELP
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True, convert=True)
@@ -20,6 +21,9 @@ def main():
 
         elif command == "CLS":
             intro()
+        
+        elif command == "HELP":
+            print(HELP)
 
         elif command == "MATRIX":
             if correct_args(arguments, 2):
@@ -64,8 +68,8 @@ def main():
         elif command == "SYM":
             if correct_args(arguments, 1):
                 validate_symmetry(*arguments)
+        print("")
 
-        print("\n")
 
 
 def intro():
