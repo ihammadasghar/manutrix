@@ -51,14 +51,15 @@ def main():
             if correct_args(arguments, 3):
                 scale_matrix(*arguments)
         
-        elif command == "ADDROW":
+        elif command == "+ROW":
             pass
         
-        elif command == "ADDCOL":
+        elif command == "+COL":
             pass
 
-        elif command == "TRANSPOSE":
-            pass
+        elif command == "TRANS":
+            if correct_args(arguments, 2):
+                transpose_matrix(*arguments)
 
         elif command == "SYM":
             pass
@@ -76,8 +77,8 @@ def print_matrix(matrix):
         print(f"{Fore.GREEN}{rows}")
 
 
-def correct_args(arguemnts, n):
-    if len(arguemnts) == n:
+def correct_args(arguments, n):
+    if len(arguments) == n:
         return True
     print(f"{Fore.RED}Required number of arguments is {n}")
     return False
@@ -139,5 +140,10 @@ def subtract_matrix(a, b, name):
 
 def scale_matrix(name, n):
     result = matrixes[name].scale(int(n))
+    save_as_new_matrix(name, result)
+
+
+def transpose_matrix(matrix, name):
+    result = matrixes[matrix].transpose()
     save_as_new_matrix(name, result)
             
