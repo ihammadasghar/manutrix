@@ -11,6 +11,16 @@ class matrix:
     def random(self, rows, cols, start=1, end=10):
         self.matrix = [[random.randrange(start, end) for _ in range(cols)] for _ in range(rows)]
 
+
+    def set_matrix(self, matrix):
+        for row in matrix:
+            self.add_row(row)
+
+    
+    def update_dims(self):
+        self.rows = len(self.matrix)
+        self.cols = len(self.matrix[0])
+
     
     def add_row(self, row, pos=None):
         if pos:
