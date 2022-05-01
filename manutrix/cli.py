@@ -23,8 +23,7 @@ def main():
 
         elif command == "MATRIX":
             if correct_args(arguments, 2):
-                make_matrix(*arguments)
-                
+                make_matrix(*arguments)        
         
         elif command == "RANDOM":
             if correct_args(arguments, 2):
@@ -34,7 +33,6 @@ def main():
             if correct_args(arguments, 1):
                 show_matrix(*arguments)
                 
-
         elif command == "MULT":
             if correct_args(arguments, 3):
                 multiply_matrix(*arguments)
@@ -102,7 +100,7 @@ def make_matrix(name, dims):
         i +=1
         
     matrixes[name] = new_matrix
-    print(f"{Fore.GREEN}Matrix {name} added.")
+    print(f"{Fore.GREEN}Matrix {name} created.")
 
 
 def make_random_matrix(name, dims):
@@ -110,12 +108,15 @@ def make_random_matrix(name, dims):
     new_matrix = matrix()
     new_matrix.random(rows, cols)
     matrixes[name] = new_matrix
-    print(f"{Fore.GREEN}Matrix {name} added.")
+    print(f"{Fore.GREEN}Matrix {name} created.")
 
 
 def show_matrix(name):
-    print(f"{Fore.BLUE}Matrix {name} {matrixes[name].get_dims()}:")
-    print_matrix(matrixes[name].matrix)
+    try:
+        print(f"{Fore.BLUE}Matrix {name} {matrixes[name].get_dims()}:")
+        print_matrix(matrixes[name].matrix)
+    except KeyError:
+        print(f"{Fore.RED}Matrix {name} doesn't exist.")
 
 
 def multiply_matrix(a, b, name):
