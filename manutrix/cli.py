@@ -54,7 +54,7 @@ def main():
         elif command == "SHOW":
             if correct_args(commands, 1):
                 name = commands[1]
-                print(f"{Fore.GREEN} Matrix {name} {matrixes[name].get_dims()}:")
+                print(f"{Fore.GREEN} Matrix {name} {matrixes[name].get_dims()}:\n")
                 print_matrix(matrixes[name].matrix)
 
         elif command == "MULT":
@@ -104,6 +104,7 @@ def intro():
 def print_matrix(matrix):
     for rows in matrix:
         print(f"{Fore.GREEN}{rows}")
+
 
 def correct_args(commands, n):
     if len(commands) == n+1:

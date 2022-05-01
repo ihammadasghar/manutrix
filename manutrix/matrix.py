@@ -117,3 +117,7 @@ class matrix:
         if self.transpose() == self.matrix:
             return True
         return False
+
+
+    def get_dims(self):
+        return (self.rows, self.cols)
