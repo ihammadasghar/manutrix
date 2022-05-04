@@ -1,12 +1,11 @@
 from matrix import matrix
 import os
 from settings import HELP
+import controller as ctlr
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True, convert=True)
 
-#  Session data
-matrixes = {}
 
 def main():
     intro()
@@ -86,7 +85,7 @@ def intro():
 
 
 def print_matrix(matrix):
-    for rows in matrix:
+    for rows in matrix.matrix:
         print(f"{Fore.GREEN}{rows}")
 
 
@@ -111,7 +110,7 @@ def make_matrix(name, dims):
         new_matrix.add_row(row)
         i +=1
         
-    matrixes[name] = new_matrix
+    ctlr.save_matrix(name, new_matrix)
     print(f"{Fore.GREEN}Matrix {name} created.")
 
 
@@ -119,53 +118,62 @@ def make_random_matrix(name, dims):
     rows, cols = map(int, dims.split("x"))
     new_matrix = matrix()
     new_matrix.random(rows, cols)
-    matrixes[name] = new_matrix
+    ctlr.save_matrix(name, new_matrix)
     print(f"{Fore.GREEN}Matrix {name} created.")
 
 
 def show_matrix(name):
-    try:
-        print(f"{Fore.BLUE}Matrix {name} {matrixes[name].get_dims()}:")
-        print_matrix(matrixes[name].matrix)
-    except KeyError:
-        print(f"{Fore.RED}Matrix {name} doesn't exist.")
+    matrix = ctlr.get_matrix(name)
+    if matrix:
+        print(f"{Fore.BLUE}Matrix {name} {matrix.get_dims()}:")
+        print_matrix(matrix)
+        return
+    print(f"{Fore.RED}Matrix {name} doesn't exist.")
 
 
 def multiply_matrix(a, b, name):
-    result = matrixes[a].multiply(matrixes[b])
+    matrix_a = ctlr.get_matrix(a)
+    matrix_b = ctlr.get_matrix(b)
+    result = matrix_a.multiply(matrix_b)
     save_as_new_matrix(name, result)
 
 
 def add_matrix(a, b, name):
-    result = matrixes[a].add(matrixes[b])
+    matrix_a = ctlr.get_matrix(a)
+    matrix_b = ctlr.get_matrix(b)
+    result = matrix_a.add(matrix_b)
     save_as_new_matrix(name, result)
 
 
 def save_as_new_matrix(name, result):
     new_matrix = matrix()
     new_matrix.set_matrix(result)
-    matrixes[name] = new_matrix
+    ctlr.save_matrix(name, new_matrix)
+
     print(f"{Fore.GREEN}Result saved at matrix {name}.")
+
     show_matrix(name)
 
 
 def subtract_matrix(a, b, name):
-    result = matrixes[a].subtract(matrixes[b])
+    matrix_a = ctlr.get_matrix(a)
+    matrix_b = ctlr.get_matrix(b)
+    result = matrix_a.subtract(matrix_b)
     save_as_new_matrix(name, result)
 
 
 def scale_matrix(name, n):
-    result = matrixes[name].scale(int(n))
+    result = ctlr.get_matrix(name).scale(int(n))
     save_as_new_matrix(name, result)
 
 
 def transpose_matrix(matrix, name):
-    result = matrixes[matrix].transpose()
+    result = ctlr.get_matrix(matrix).transpose()
     save_as_new_matrix(name, result)
 
 
 def validate_symmetry(name):
-    is_sym = matrixes[name].is_symmetrical()
+    is_sym = ctlr.get_matrix(name).is_symmetrical()
     if is_sym:
         print(f"{Fore.GREEN}Matrix {name} is symmetrical.")
         return
@@ -174,36 +182,38 @@ def validate_symmetry(name):
 
 def add_row(name):
     while True:
+        matrix = ctlr.get_matrix(name)
         row = input(f"{Fore.BLUE}Row: ")
         row = list(map(float, row.split(" ")))
-        if len(row) == matrixes[name].cols:
-            matrixes[name].add_row(row)
+        if len(row) == matrix.cols:
+            matrix.add_row(row)
             print(f"{Fore.GREEN}Row added to matrix {name}.")
             show_matrix(name)
             return
-        print(f"{Fore.RED}{matrixes[name].cols} elements required in each row.")
+        print(f"{Fore.RED}{matrix.cols} elements required in each row.")
 
 
 def add_col(name):
     while True:
+        matrix = ctlr.get_matrix(name)
         col = input(f"{Fore.BLUE}Column: ")
         col = list(map(float, col.split(" ")))
-        if len(col) == matrixes[name].rows:
-            matrixes[name].add_col(col)
+        if len(col) == matrix.rows:
+            matrix.add_col(col)
             print(f"{Fore.GREEN}Column added to matrix {name}.")
             show_matrix(name)
             return
-        print(f"{Fore.RED}{matrixes[name].rows} elements required in each column.")
+        print(f"{Fore.RED}{matrix.rows} elements required in each column.")
 
 
 def remove_row(matrix_name, row_num):
-    matrixes[matrix_name].remove_row(int(row_num))
+    ctlr.get_matrix(matrix_name).remove_row(int(row_num))
     print(f"{Fore.GREEN}Row {row_num} removed from {matrix_name}.")
     show_matrix(matrix_name)
 
 
 def remove_col(matrix_name, col_num):
-    matrixes[matrix_name].remove_col(int(col_num))
+    ctlr.get_matrix(matrix_name).remove_col(int(col_num))
     print(f"{Fore.GREEN}Col {col_num} removed from {matrix_name}.")
     show_matrix(matrix_name)
     
