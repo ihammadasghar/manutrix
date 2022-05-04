@@ -41,8 +41,7 @@ class matrix:
             for i in range(self.rows):
                 self.matrix[i].append(col[i])
         
-        self.rows = len(col)
-        self.cols += 1
+        self.update_dims()
 
     
     def remove_col(self, col_num):
@@ -118,11 +117,10 @@ class matrix:
 
     
     def scale(self, n):
-        rows, cols= self.dims
         result_matrix = self.matrix.copy()
-        for i in range(rows):
-            for j in range(cols):
-                result_matrix *= n
+        for i in range(self.rows):
+            for j in range(self.cols):
+                result_matrix[i][j] *= n
         return result_matrix
 
     
