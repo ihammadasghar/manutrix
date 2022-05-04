@@ -26,6 +26,12 @@ class matrix:
             self.matrix.append(row)
         self.update_dims()
 
+
+    def remove_row(self, row_num):
+        if row_num in range(self.rows):
+            del self.matrix[row_num]
+            self.update_dims()
+
     
     def add_col(self, col, pos=None):
         if pos:
@@ -37,6 +43,13 @@ class matrix:
         
         self.rows = len(col)
         self.cols += 1
+
+    
+    def remove_col(self, col_num):
+        if col_num in range(self.cols):
+            for i in range(self.rows):
+                del self.matrix[i][col_num]
+            self.update_dims()
 
 
     def get_col(self, col_num):
@@ -128,3 +141,7 @@ class matrix:
 
     def get_dims(self):
         return (self.rows, self.cols)
+
+    
+    def determinant(self):
+        pass

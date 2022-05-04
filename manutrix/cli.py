@@ -68,6 +68,14 @@ def main():
         elif command == "SYM":
             if correct_args(arguments, 1):
                 validate_symmetry(*arguments)
+
+        elif command == "-ROW":
+            if correct_args(arguments, 2):
+                remove_row(*arguments)
+
+        elif command == "-COL":
+            if correct_args(arguments, 2):
+                remove_col(*arguments)
         print("")
 
 
@@ -186,4 +194,16 @@ def add_col(name):
             show_matrix(name)
             return
         print(f"{Fore.RED}{matrixes[name].rows} elements required in each column.")
+
+
+def remove_row(matrix_name, row_num):
+    matrixes[matrix_name].remove_row(int(row_num))
+    print(f"{Fore.GREEN}Row {row_num} removed from {matrix_name}.")
+    show_matrix(matrix_name)
+
+
+def remove_col(matrix_name, col_num):
+    matrixes[matrix_name].remove_col(int(col_num))
+    print(f"{Fore.GREEN}Col {col_num} removed from {matrix_name}.")
+    show_matrix(matrix_name)
     
