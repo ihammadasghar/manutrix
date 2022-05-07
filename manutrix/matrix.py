@@ -1,4 +1,4 @@
-from turtle import update
+from copy import deepcopy
 from utils import dot_product
 import random
 
@@ -70,9 +70,8 @@ class matrix:
 
 
     def set_matrix(self, matrix):
-        self.matrix = matrix
-        if matrix != []:
-            self.update_dims()
+        self.matrix = deepcopy(matrix)
+        self.update_dims()
 
 
     def add(self, b):
@@ -85,7 +84,7 @@ class matrix:
                     sum_of_element = self.matrix[i][j] + b.matrix[i][j]
                     sumed_row.append(sum_of_element)
                 result_matrix.append(sumed_row)
-                
+            
             return result_matrix
         return None
 
@@ -140,6 +139,8 @@ class matrix:
     def get_dims(self):
         return (self.rows, self.cols)
 
-    
-    def determinant(self):
-        pass
+
+    def is_squared(self):
+        if self.rows == self.cols:
+            return True
+        return False

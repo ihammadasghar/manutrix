@@ -5,3 +5,4 @@ def dot_product(a: list, b: list) -> float:
         multiplied_elements = [(a[i]*b[i]) for i in range(len_a)]
         return sum(multiplied_elements)
     return None
+    
