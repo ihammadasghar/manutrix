@@ -11,7 +11,7 @@ def determinant(matrix):
     det = 0
     mini_matrix = mtx()
     for i in range(matrix.rows):
-        mini_matrix.set_matrix(matrix.matrix)
+        mini_matrix.copy_matrix(matrix.matrix)
         mini_matrix.remove_row(0)
         mini_matrix.remove_col(i)
         tmp = (matrix.matrix[0][i] * ((-1)**(i)) * determinant(mini_matrix))

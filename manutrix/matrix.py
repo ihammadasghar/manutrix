@@ -3,10 +3,12 @@ from utils import dot_product
 import random
 
 class matrix:
-    def __init__(self) -> None:
+    def __init__(self, matrix=None) -> None:
         self.rows = 0
         self.cols = 0
         self.matrix = []
+        if matrix:
+            self.set_matrix(matrix)
 
 
     def random(self, rows, cols, start=1, end=10):
@@ -20,7 +22,8 @@ class matrix:
 
 
     def get_identity(self):
-        matrix = [[1.0 if i==j else 0.0 for i in range(self.cols)] for j in range(self.rows)]
+        matrix = self.__class__()
+        matrix.identity(self.rows, self.cols)
         return matrix
 
     
@@ -63,7 +66,7 @@ class matrix:
 
     def get_col(self, col_num):
         col = [row[col_num] for row in self.matrix]
-        return col
+        return self.__class__(matrix=col)
 
     
     def set_col(self, new_col, col_num):
@@ -72,15 +75,21 @@ class matrix:
 
 
     def get_row(self, row_num):
-        return self.matrix[row_num]
+        row = self.matrix[row_num]
+        return self.__class__(matrix=row)
 
     
     def set_row(self, new_row, row_num):
         self.matrix[row_num] = new_row
 
 
-    def set_matrix(self, matrix):
+    def copy_matrix(self, matrix):
         self.matrix = deepcopy(matrix)
+        self.update_dims()
+
+    
+    def set_matrix(self, matrix):
+        self.matrix = matrix
         self.update_dims()
 
 
@@ -95,7 +104,7 @@ class matrix:
                     sumed_row.append(sum_of_element)
                 result_matrix.append(sumed_row)
             
-            return result_matrix
+            return self.__class__(matrix=result_matrix)
         return None
 
 
@@ -110,7 +119,7 @@ class matrix:
                     subtracted_row.append(subtracted_elements)
                 result_matrix.append(subtracted_row)
                 
-            return result_matrix
+            return self.__class__(matrix=result_matrix)
         return None
 
 
@@ -121,7 +130,7 @@ class matrix:
                 multiplied_row = [dot_product(self.matrix[i], b.get_col(j)) for j in range(b.cols)]
                 result_matrix.append(multiplied_row)
                 
-            return result_matrix
+            return self.__class__(matrix=result_matrix)
         return None
 
     
@@ -130,14 +139,14 @@ class matrix:
         for i in range(self.rows):
             for j in range(self.cols):
                 result_matrix[i][j] *= n
-        return result_matrix
+        return self.__class__(matrix=result_matrix)
 
     
     def transpose(self):
         result_matrix = []
         for i in range(self.cols):
             result_matrix.append(self.get_col(i))
-        return result_matrix
+        return self.__class__(matrix=result_matrix)
 
     
     def is_symmetrical(self):

@@ -135,20 +135,18 @@ def multiply_matrix(a, b, name):
     matrix_a = ctlr.get_matrix(a)
     matrix_b = ctlr.get_matrix(b)
     result = matrix_a.multiply(matrix_b)
-    save_as_new_matrix(name, result)
+    save_matrix(name, result)
 
 
 def add_matrix(a, b, name):
     matrix_a = ctlr.get_matrix(a)
     matrix_b = ctlr.get_matrix(b)
     result = matrix_a.add(matrix_b)
-    save_as_new_matrix(name, result)
+    save_matrix(name, result)
 
 
-def save_as_new_matrix(name, result):
-    new_matrix = matrix()
-    new_matrix.set_matrix(result)
-    ctlr.save_matrix(name, new_matrix)
+def save_matrix(name, result):
+    ctlr.save_matrix(name, result)
 
     print(f"{Fore.GREEN}Result saved at matrix {name}.")
 
@@ -159,17 +157,17 @@ def subtract_matrix(a, b, name):
     matrix_a = ctlr.get_matrix(a)
     matrix_b = ctlr.get_matrix(b)
     result = matrix_a.subtract(matrix_b)
-    save_as_new_matrix(name, result)
+    save_matrix(name, result)
 
 
 def scale_matrix(name, n):
     result = ctlr.get_matrix(name).scale(int(n))
-    save_as_new_matrix(name, result)
+    save_matrix(name, result)
 
 
 def transpose_matrix(matrix, name):
     result = ctlr.get_matrix(matrix).transpose()
-    save_as_new_matrix(name, result)
+    save_matrix(name, result)
 
 
 def validate_symmetry(name):
