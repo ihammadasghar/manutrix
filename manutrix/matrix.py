@@ -66,7 +66,7 @@ class matrix:
 
     def get_col(self, col_num):
         col = [row[col_num] for row in self.matrix]
-        return self.__class__(matrix=col)
+        return col
 
     
     def set_col(self, new_col, col_num):
@@ -76,7 +76,7 @@ class matrix:
 
     def get_row(self, row_num):
         row = self.matrix[row_num]
-        return self.__class__(matrix=row)
+        return row
 
     
     def set_row(self, new_row, row_num):
@@ -127,7 +127,7 @@ class matrix:
         if self.cols == b.rows:
             result_matrix = []
             for i in range(self.rows):
-                multiplied_row = [dot_product(self.matrix[i], b.get_col(j)) for j in range(b.cols)]
+                multiplied_row = [dot_product(self.get_row(i), b.get_col(j)) for j in range(b.cols)]
                 result_matrix.append(multiplied_row)
                 
             return self.__class__(matrix=result_matrix)

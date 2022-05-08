@@ -1,0 +1,28 @@
+Smart functions to manipulate any 2D matrix.
+Use command 'functions' to list all functions.
+Row 1: Row 2: Row 3: Row 4: Matrix matrix1 created.
+
+Matrix matrix1 (4, 4):
+[1.0, 2.0, 3.0, 4.0]
+[1.0, 2.0, 3.0, 4.0]
+[1.0, 2.0, 3.0, 4.0]
+[1.0, 2.0, 3.0, 4.0]
+
+Row 1: Row 2: Row 3: Row 4: Matrix matrix2 created.
+
+Result saved at matrix sum-of-1-2.
+Matrix sum-of-1-2 (4, 4):
+[2.0, 4.0, 6.0, 8.0]
+[2.0, 4.0, 6.0, 8.0]
+[2.0, 4.0, 6.0, 8.0]
+[2.0, 4.0, 6.0, 8.0]
+
+Row 1: Row 2: Row 3: Row 4: Matrix matrix3 created.
+
+Result saved at matrix result.
+Matrix result (4, 3):
+[20.0, 40.0, 60.0]
+[20.0, 40.0, 60.0]
+[20.0, 40.0, 60.0]
+[20.0, 40.0, 60.0]
+
