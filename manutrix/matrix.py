@@ -13,6 +13,16 @@ class matrix:
         self.matrix = [[float(random.randrange(start, end)) for _ in range(cols)] for _ in range(rows)]
         self.update_dims()
 
+
+    def identity(self, rows, cols):
+        self.matrix = [[1.0 if i==j else 0.0 for i in range(cols)] for j in range(rows)]
+        self.update_dims()
+
+
+    def get_identity(self):
+        matrix = [[1.0 if i==j else 0.0 for i in range(self.cols)] for j in range(self.rows)]
+        return matrix
+
     
     def update_dims(self):
         self.rows = len(self.matrix)
