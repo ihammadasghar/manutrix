@@ -163,3 +163,23 @@ class matrix:
         if self.rows == self.cols:
             return True
         return False
+
+
+    def determinant(self):
+        if self.rows == 1:
+            return self.matrix[0][0]
+            
+        if self.rows == 2:
+            a, b = self.matrix[0]
+            c, d = self.matrix[1]
+            return (a*d)-(c*b)
+
+        det = 0
+        mini_matrix = self.__class__()
+        for i in range(self.rows):
+            mini_matrix.copy_matrix(self.matrix)
+            mini_matrix.remove_row(0)
+            mini_matrix.remove_col(i)
+            tmp = (self.matrix[0][i] * ((-1)**(i)) * mini_matrix.determinant())
+            det += tmp
+        return det
