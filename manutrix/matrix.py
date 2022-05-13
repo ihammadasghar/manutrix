@@ -165,10 +165,27 @@ class matrix:
         return False
 
 
+    def join(self, b, horizontal=True):
+        if self.get_dims() == b.get_dims():
+            joined = self.__class__()
+            joined.copy_matrix(self.matrix)
+
+            if horizontal:
+                for i in range(b.cols):
+                    joined.add_col(b.get_col(i))
+                return joined
+            
+            #  Vertical
+            for i in range(b.row):
+                joined.add_row(b.get_row(i))
+            return joined
+        return None
+
+
     def determinant(self):
         if self.rows == 1:
             return self.matrix[0][0]
-            
+
         if self.rows == 2:
             a, b = self.matrix[0]
             c, d = self.matrix[1]
@@ -183,3 +200,52 @@ class matrix:
             tmp = (self.matrix[0][i] * ((-1)**(i)) * mini_matrix.determinant())
             det += tmp
         return det
+
+    
+    def triangulate(self, inferior=True):
+        if inferior:
+            for i in range(self.rows):
+                #  Make pivot equal 1
+                pivot = self.matrix[i][i]
+                
+                #  TODO: switch rows incase pivot is zero
+                if pivot == 0:
+                    pass
+
+                if pivot != 1 and pivot!=0:
+                    for j in range(self.cols):
+                        self.matrix[i][j] /= pivot
+
+                #  Make everthing under the pivot 0
+                for r in range(i+1, self.rows):
+                    coef = self.matrix[r][i]
+                    for j in range(self.cols):
+                        self.matrix[r][j] -= (coef*self.matrix[i][j])
+        else:
+            for i in range(self.rows-1, -1, -1):
+                #  Make everthing above the pivot 0
+                for r in range(i-1, -1, -1):
+                    coef = self.matrix[r][i]
+                    for j in range(self.cols):
+                        self.matrix[r][j] -= (coef*self.matrix[i][j])
+
+    
+    def inverse(self):
+        if self.determinant() == 0:  #  Inverse Doesn't exist
+            return None
+
+        identity = self.get_identity()
+        mi = self.join(identity, horizontal=True)  #  Matrix and identity matrix joined
+
+        #  Transform the Left side to a identity matrix
+        #  All zeros under diagonal
+        mi.triangulate()
+
+        #  All zeros above diagonal
+        mi.triangulate(inferior=False)
+        
+        #  Remove left side identity matrix to be left with the inverse
+        for _ in range(mi.cols//2):
+            mi.remove_col(0)
+        
+        return mi
