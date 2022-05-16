@@ -1,3 +1,4 @@
+from tkinter import HORIZONTAL
 from matrix import matrix
 import os
 from settings import HELP
@@ -85,14 +86,12 @@ def main():
                 inverse(*arguments)
 
         elif command == "JOINV":
-            if correct_args(arguments, 2):
+            if correct_args(arguments, 3):
                 join_vertical(*arguments)
 
         elif command == "JOINH":
-            if correct_args(arguments, 2):
+            if correct_args(arguments, 3):
                 join_horizontal(*arguments)
-
-        
 
         print("")
 
@@ -148,7 +147,8 @@ def show_matrix(name):
             print(f"{Fore.BLUE}Matrix {name} {matrix.get_dims()}:")
             print_matrix(matrix)
             print("\n")
-            
+        return
+
     matrix = ctlr.get_matrix(name)
     if matrix:
         print(f"{Fore.BLUE}Matrix {name} {matrix.get_dims()}:")
@@ -253,13 +253,18 @@ def determinant(matrix_name, name):
     save_constant(name, det)
 
 
-def inverse():
-    pass
+def inverse(matrix_name, name):
+    result = ctlr.get_matrix(matrix_name).inverse()
+    save_matrix(name, result)
 
 
-def join_vertical():
-    pass
+def join_vertical(matrix_a, matrix_b, name):
+    b = ctlr.get_matrix(matrix_b)
+    result = ctlr.get_matrix(matrix_a).join(b, horizontal=False)
+    save_matrix(name, result)
 
 
-def join_horizontal():
-    pass
+def join_horizontal(matrix_a, matrix_b, name):
+    b = ctlr.get_matrix(matrix_b)
+    result = ctlr.get_matrix(matrix_a).join(b, horizontal=True)
+    save_matrix(name, result)

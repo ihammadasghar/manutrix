@@ -176,7 +176,7 @@ class matrix:
                 return joined
             
             #  Vertical
-            for i in range(b.row):
+            for i in range(b.rows):
                 joined.add_row(b.get_row(i))
             return joined
         return None
