@@ -92,6 +92,8 @@ def main():
             if correct_args(arguments, 2):
                 join_horizontal(*arguments)
 
+        
+
         print("")
 
 
@@ -140,6 +142,13 @@ def make_random_matrix(name, dims):
 
 
 def show_matrix(name):
+    if name.upper() == "ALL":
+        matrixes = ctlr.get_matrixes()
+        for name, matrix in matrixes.items():
+            print(f"{Fore.BLUE}Matrix {name} {matrix.get_dims()}:")
+            print_matrix(matrix)
+            print("\n")
+            
     matrix = ctlr.get_matrix(name)
     if matrix:
         print(f"{Fore.BLUE}Matrix {name} {matrix.get_dims()}:")

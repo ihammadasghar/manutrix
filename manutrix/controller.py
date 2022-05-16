@@ -10,6 +10,10 @@ def get_matrix(name):
     return matrix
 
 
+def get_matrixes():
+    return matrixes
+
+
 def save_matrix(name, matrix):
     matrixes[name] = matrix
 
