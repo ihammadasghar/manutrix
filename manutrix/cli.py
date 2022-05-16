@@ -75,6 +75,23 @@ def main():
         elif command == "-COL":
             if correct_args(arguments, 2):
                 remove_col(*arguments)
+
+        elif command == "DET":
+            if correct_args(arguments, 2):
+                determinant(*arguments)
+
+        elif command == "INV":
+            if correct_args(arguments, 2):
+                inverse(*arguments)
+
+        elif command == "JOINV":
+            if correct_args(arguments, 2):
+                join_vertical(*arguments)
+
+        elif command == "JOINH":
+            if correct_args(arguments, 2):
+                join_horizontal(*arguments)
+
         print("")
 
 
@@ -214,4 +231,26 @@ def remove_col(matrix_name, col_num):
     ctlr.get_matrix(matrix_name).remove_col(int(col_num))
     print(f"{Fore.GREEN}Col {col_num} removed from {matrix_name}.")
     show_matrix(matrix_name)
-    
+
+
+def save_constant(name, c):
+    ctlr.save_constant(name, c)
+    print(f"{Fore.GREEN}Constant {c} saved as {name}.")
+
+
+def determinant(matrix_name, name):
+    det = ctlr.get_matrix(matrix_name).determinant()
+    print(f"{Fore.GREEN}|{matrix_name}| = {det}")
+    save_constant(name, det)
+
+
+def inverse():
+    pass
+
+
+def join_vertical():
+    pass
+
+
+def join_horizontal():
+    pass

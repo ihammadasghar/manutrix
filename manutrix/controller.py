@@ -1,6 +1,6 @@
 #  Session data
 matrixes = {}
-
+constants = {} 
 
 def get_matrix(name):
     try:
@@ -12,3 +12,15 @@ def get_matrix(name):
 
 def save_matrix(name, matrix):
     matrixes[name] = matrix
+
+
+def get_constant(name):
+    try:
+        val = constants[name]
+    except KeyError:
+        return None
+    return val
+
+
+def save_constant(name, value):
+    constants[name] = value
