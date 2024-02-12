@@ -1,4 +1,3 @@
-from tkinter import HORIZONTAL
 from matrix import matrix
 import os
 from settings import HELP
@@ -99,7 +98,7 @@ def main():
 
 def intro():
     os.system("cls")
-    print(f"{Fore.GREEN}Smart functions to manipulate any 2D matrix.\nUse command 'functions' to list all functions.")
+    print(f"{Fore.GREEN}Smart functions to manipulate any 2D matrix.\nUse command 'help' to list all functions.")
 
 
 def print_matrix(matrix):
